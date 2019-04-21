@@ -49,11 +49,11 @@ public class CarApplication {
         	
         	// username: user password: user
             urepository.save(new User("user",
-            "123456",
+            "$2a$04$1.YhMIgNX/8TkCKGFUONWO1waedKhQ5KrnB30fl0Q01QKqmzLf.Zi",
             "USER"));
             // username: admin password: admin
             urepository.save(new User("admin",
-            "123456789", 
+            "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", 
             "ADMIN"));
         };
       } 
