@@ -4,11 +4,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.demo.car.cardatabase.Car;
 import com.demo.car.cardatabase.CarRepository;
 import com.demo.car.cardatabase.Owner;
 import com.demo.car.cardatabase.OwnerRepository;
+import com.demo.car.cardatabase.User;
+import com.demo.car.cardatabase.UserRepository;
 
 @SpringBootApplication
 public class CarApplication {
@@ -18,9 +21,14 @@ public class CarApplication {
 	
 	@Autowired
 	private OwnerRepository orepository;
+	
+	@Autowired 
+	private UserRepository urepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarApplication.class, args);
+		System.out.println("encoded username is " +new BCryptPasswordEncoder().encode("user"));
+		System.out.println("encoded password is " +new BCryptPasswordEncoder().encode("123456"));
 	}
 	
 	@Bean
@@ -38,6 +46,15 @@ public class CarApplication {
         	repository.save(c1); 
         	c1 = new Car("Toyota", "Prius", "Silver","KKO-0212", 2018, 39000,o2);
         	repository.save(c1);
+        	
+        	// username: user password: user
+            urepository.save(new User("user",
+            "123456",
+            "USER"));
+            // username: admin password: admin
+            urepository.save(new User("admin",
+            "123456789", 
+            "ADMIN"));
         };
       } 
 
