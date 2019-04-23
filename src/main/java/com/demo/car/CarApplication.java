@@ -27,8 +27,6 @@ public class CarApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarApplication.class, args);
-		System.out.println("encoded username is " +new BCryptPasswordEncoder().encode("user"));
-		System.out.println("encoded password is " +new BCryptPasswordEncoder().encode("123456"));
 	}
 	
 	@Bean
@@ -48,9 +46,13 @@ public class CarApplication {
         	repository.save(c1);
         	
         	// username: user password: user
-            urepository.save(new User("user",
-            "$2a$04$1.YhMIgNX/8TkCKGFUONWO1waedKhQ5KrnB30fl0Q01QKqmzLf.Zi",
-            "USER"));
+        	User u1 = new User();
+        	String password = "123456";
+        	BCryptPasswordEncoder passwordencoder = new BCryptPasswordEncoder();
+        	u1.setUsername("user");
+        	u1.setPassword(passwordencoder.encode(password));
+        	u1.setRole("USER");
+            urepository.save(u1);
             // username: admin password: admin
             urepository.save(new User("admin",
             "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", 

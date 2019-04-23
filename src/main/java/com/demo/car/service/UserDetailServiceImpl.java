@@ -15,17 +15,20 @@ public class UserDetailServiceImpl implements UserDetailsService  {
 	
 	@Autowired
 	private UserRepository repository;
-	
+		
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("load");
 		 User currentUser = repository.findByUsername(username);
 		 if(currentUser == null) {
+			 System.out.println("mlgb");
 			 throw new UsernameNotFoundException("User not authorized.");
-		 }else {
+		 }
+		 System.out.println(currentUser.getUsername());
+		 System.out.println(currentUser.getPassword());
 	        UserDetails user = new org.springframework.security.core
-	            .userdetails.User(username, currentUser.getPassword()
-	            , true, true, true, true, 
+	            .userdetails.User(currentUser.getUsername(), currentUser.getPassword(),
 	            AuthorityUtils.createAuthorityList(currentUser.getRole()));
 	        return user;
-		 }
+		 
 	}
 }
